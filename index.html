@@ -6,193 +6,299 @@
 <title>Uziel Rodríguez Andújar — Mechanical Engineering Portfolio</title>
 <style>
   :root{
-    --ink:#1a1d21;
-    --gray-700:#3d4148;
-    --gray-500:#6b7078;
-    --gray-300:#c7cbd1;
-    --gray-100:#f4f5f6;
-    --paper:#ffffff;
-    --accent:#1d4ed8;
-    --accent-soft:#e8edfc;
-    --border:#e2e4e8;
-    --mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
-    --sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Helvetica, Arial, sans-serif;
+    --bg:#0a0e0d;
+    --surface:#101513;
+    --surface-2:#141b19;
+    --line:#1f2b27;
+    --line-bright:#2c3d37;
+    --text:#d7e6df;
+    --text-dim:#7c9089;
+    --text-faint:#4d5f59;
+    --green:#39ff8f;
+    --green-dim:#1fa85f;
+    --cyan:#4ee8ff;
+    --amber:#ffcc66;
+    --mono: 'JetBrains Mono', 'Fira Code', 'SFMono-Regular', Consolas, monospace;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
-    font-family:var(--sans);
-    color:var(--ink);
-    background:var(--paper);
-    line-height:1.6;
-    font-size:16px;
+    font-family:var(--mono);
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.65;
+    font-size:15px;
   }
   a{color:inherit;}
   .wrap{max-width:960px; margin:0 auto; padding:0 28px;}
+  ::selection{background:var(--green); color:#04140a;}
+
+  /* BACKGROUND FX — digital rain w/ Fifth Element-ish warm/cool palette */
+  #bgfx{
+    position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none;
+    background:
+      radial-gradient(circle at 15% 0%, rgba(57,255,143,0.08), transparent 45%),
+      radial-gradient(circle at 90% 15%, rgba(78,232,255,0.07), transparent 42%),
+      radial-gradient(circle at 50% 100%, rgba(255,138,61,0.05), transparent 50%),
+      var(--bg);
+  }
+  #bgfx canvas{position:absolute; inset:0; width:100%; height:100%; opacity:0.4;}
+  #bgfx .veil{position:absolute; inset:0; background:rgba(10,14,13,0.62);}
 
   /* NAV */
   header.nav{
     position:sticky; top:0; z-index:50;
-    background:rgba(255,255,255,0.92);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--border);
+    background:rgba(10,14,13,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
   }
   .nav-inner{
     max-width:960px; margin:0 auto; padding:16px 28px;
     display:flex; align-items:center; justify-content:space-between;
   }
-  .nav-name{font-weight:700; font-size:15px; letter-spacing:0.02em;}
-  .nav-links{display:flex; gap:26px; list-style:none;}
+  .nav-name{font-weight:700; font-size:14px; color:var(--green); letter-spacing:0.02em;}
+  .nav-name .cursor{display:inline-block; width:8px; height:14px; background:var(--green); margin-left:2px; animation:blink 1.1s steps(1) infinite; vertical-align:-2px;}
+  @keyframes blink{50%{opacity:0;}}
+  .nav-links{display:flex; gap:24px; list-style:none;}
   .nav-links a{
-    font-size:13px; text-decoration:none; color:var(--gray-700);
-    text-transform:uppercase; letter-spacing:0.06em; font-weight:600;
-    border-bottom:2px solid transparent; padding-bottom:2px;
+    font-size:12.5px; text-decoration:none; color:var(--text-dim);
+    letter-spacing:0.02em; font-weight:500;
+    border-bottom:1px solid transparent; padding-bottom:2px;
     transition:color .15s, border-color .15s;
   }
-  .nav-links a:hover{color:var(--accent); border-color:var(--accent);}
+  .nav-links a::before{content:"./"; color:var(--text-faint);}
+  .nav-links a:hover{color:var(--green); border-color:var(--green);}
   .nav-cta{
-    font-size:13px; font-weight:600; padding:8px 16px;
-    border:1px solid var(--ink); border-radius:4px; text-decoration:none;
-    white-space:nowrap;
+    font-size:12.5px; font-weight:600; padding:8px 16px;
+    border:1px solid var(--green-dim); border-radius:3px; text-decoration:none;
+    white-space:nowrap; color:var(--green);
+    transition:box-shadow .2s, background .2s;
   }
-  .nav-cta:hover{background:var(--ink); color:#fff;}
+  .nav-cta:hover{background:rgba(57,255,143,0.08); box-shadow:0 0 16px rgba(57,255,143,0.25);}
 
-  /* HERO */
-  .hero{padding:96px 0 64px; border-bottom:1px solid var(--border);}
-  .eyebrow{
-    font-family:var(--mono); font-size:12px; letter-spacing:0.08em;
-    text-transform:uppercase; color:var(--accent); margin-bottom:18px;
-    display:flex; align-items:center; gap:8px;
+  /* TERMINAL WINDOW (hero) */
+  .hero{padding:64px 0 60px; border-bottom:1px solid var(--line);}
+  .term-window{
+    border:1px solid var(--line-bright); border-radius:8px; background:var(--surface);
+    box-shadow:0 0 40px rgba(57,255,143,0.05), 0 20px 50px rgba(0,0,0,0.4);
+    overflow:hidden;
   }
-  .eyebrow::before{content:""; width:8px; height:8px; background:var(--accent); border-radius:50%; display:inline-block;}
-  .hero h1{font-size:44px; font-weight:800; letter-spacing:-0.01em; line-height:1.12; margin-bottom:14px;}
-  .hero .role{font-size:19px; color:var(--gray-700); font-weight:500; margin-bottom:22px;}
-  .hero p.lede{font-size:16.5px; color:var(--gray-700); max-width:620px; margin-bottom:30px;}
-  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .term-bar{
+    display:flex; align-items:center; gap:8px; padding:10px 14px;
+    background:var(--surface-2); border-bottom:1px solid var(--line);
+  }
+  .term-dot{width:10px; height:10px; border-radius:50%;}
+  .term-dot.r{background:#ff5f57;} .term-dot.y{background:#febc2e;} .term-dot.g{background:#28c840;}
+  .term-title{margin-left:8px; font-size:11.5px; color:var(--text-faint);}
+  .term-body{padding:28px 30px 32px;}
+  .prompt-line{font-size:13px; color:var(--text-dim); margin-bottom:6px;}
+  .prompt-line .p{color:var(--green);}
+  .hero h1{font-size:38px; font-weight:700; letter-spacing:-0.01em; line-height:1.15; margin:14px 0 8px; color:var(--text);}
+  .hero h1 .brkt{color:var(--green-dim);}
+  .hero .role{font-size:15.5px; color:var(--cyan); font-weight:500; margin-bottom:20px;}
+  .hero p.lede{font-size:14.5px; color:var(--text-dim); max-width:620px; margin-bottom:28px; line-height:1.7;}
+  .hero-actions{display:flex; gap:12px; flex-wrap:wrap;}
   .btn{
-    display:inline-block; padding:11px 22px; border-radius:4px; font-size:14px;
-    font-weight:600; text-decoration:none; border:1px solid transparent;
+    display:inline-block; padding:10px 20px; border-radius:3px; font-size:13px;
+    font-weight:600; text-decoration:none; border:1px solid var(--line-bright);
+    font-family:var(--mono); transition:all .15s;
   }
-  .btn-primary{background:var(--ink); color:#fff;}
-  .btn-primary:hover{background:var(--accent);}
-  .btn-outline{border:1px solid var(--gray-300); color:var(--ink);}
-  .btn-outline:hover{border-color:var(--ink);}
+  .btn-primary{background:var(--green); color:#04140a; border-color:var(--green);}
+  .btn-primary:hover{box-shadow:0 0 20px rgba(57,255,143,0.45);}
+  .btn-outline{border:1px solid var(--line-bright); color:var(--text);}
+  .btn-outline:hover{border-color:var(--cyan); color:var(--cyan); box-shadow:0 0 14px rgba(78,232,255,0.2);}
+  .status-line{margin-top:24px; font-size:11.5px; color:var(--text-faint); display:flex; align-items:center; gap:8px;}
+  .status-dot{width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 8px var(--green); animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.4;}}
 
   /* SECTION HEADERS */
-  section{padding:64px 0;}
-  section + section{border-top:1px solid var(--border);}
-  .section-head{margin-bottom:36px;}
+  section{padding:56px 0;}
+  section + section{border-top:1px solid var(--line);}
+  .section-head{margin-bottom:32px;}
   .section-num{
-    font-family:var(--mono); font-size:12px; color:var(--gray-500);
-    letter-spacing:0.05em; margin-bottom:8px;
+    font-size:12px; color:var(--green-dim);
+    letter-spacing:0.03em; margin-bottom:8px;
   }
-  .section-head h2{font-size:26px; font-weight:800; letter-spacing:-0.01em;}
-  .section-head p{color:var(--gray-500); font-size:14.5px; margin-top:6px; max-width:560px;}
+  .section-num::before{content:"# ";}
+  .section-head h2{font-size:22px; font-weight:700; letter-spacing:-0.005em; color:var(--text);}
+  .section-head p{color:var(--text-faint); font-size:13px; margin-top:8px; max-width:560px;}
 
   /* ABOUT */
-  .about-body p{color:var(--gray-700); font-size:15.5px; margin-bottom:16px; max-width:680px;}
-  .about-body strong{color:var(--ink);}
+  .about-body{border-left:2px solid var(--line-bright); padding-left:20px;}
+  .about-body p{color:var(--text-dim); font-size:14px; margin-bottom:16px; max-width:680px;}
+  .about-body strong{color:var(--green); font-weight:600;}
 
   /* PROJECT CARDS */
   .project{
-    border:1px solid var(--border); border-radius:8px; margin-bottom:24px; overflow:hidden;
+    border:1px solid var(--line); border-radius:6px; margin-bottom:22px; overflow:hidden;
+    background:var(--surface);
+    transition:border-color .2s, box-shadow .2s, transform .2s;
   }
+  .project:hover{border-color:var(--green-dim); box-shadow:0 0 30px rgba(57,255,143,0.08); transform:translateY(-2px);}
   .project-head{
-    padding:22px 26px; display:flex; justify-content:space-between; align-items:flex-start;
-    gap:16px; flex-wrap:wrap; background:var(--gray-100);
+    padding:20px 24px; display:flex; justify-content:space-between; align-items:flex-start;
+    gap:16px; flex-wrap:wrap; background:var(--surface-2); border-bottom:1px solid var(--line);
   }
-  .project-title{font-size:18px; font-weight:700;}
-  .project-org{font-size:13.5px; color:var(--gray-500); margin-top:3px;}
+  .project-title{font-size:15.5px; font-weight:700; color:var(--text);}
+  .project-org{font-size:12px; color:var(--text-faint); margin-top:4px;}
   .project-tag{
-    font-family:var(--mono); font-size:11.5px; padding:4px 10px; border-radius:20px;
-    background:var(--accent-soft); color:var(--accent); font-weight:700; white-space:nowrap;
-    text-transform:uppercase; letter-spacing:0.03em;
+    font-size:10.5px; padding:4px 10px; border-radius:3px;
+    background:rgba(57,255,143,0.08); color:var(--green); font-weight:700; white-space:nowrap;
+    text-transform:uppercase; letter-spacing:0.04em; border:1px solid var(--green-dim);
   }
-  .project-body{padding:24px 26px;}
-  .project-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:28px;}
+  .project-tag.foundational{background:rgba(78,232,255,0.08); color:var(--cyan); border-color:#1c7a8a;}
+  .project-body{padding:22px 24px;}
+  .project-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:26px;}
   @media(max-width:720px){.project-grid{grid-template-columns:1fr;}}
-  .project-desc p{font-size:14.5px; color:var(--gray-700); margin-bottom:14px;}
+  .project-desc p{font-size:13.5px; color:var(--text-dim); margin-bottom:14px; line-height:1.7;}
   .project-list{list-style:none; margin-bottom:14px;}
   .project-list li{
-    font-size:14px; color:var(--gray-700); padding-left:16px; position:relative; margin-bottom:8px;
+    font-size:13px; color:var(--text-dim); padding-left:18px; position:relative; margin-bottom:8px;
   }
-  .project-list li::before{content:"→"; position:absolute; left:0; color:var(--accent); font-weight:700;}
+  .project-list li::before{content:">"; position:absolute; left:0; color:var(--green); font-weight:700;}
+  .kw{color:var(--cyan); font-weight:600;}
   .tools-row{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px;}
   .tool-chip{
-    font-family:var(--mono); font-size:11.5px; padding:4px 9px; border:1px solid var(--gray-300);
-    border-radius:4px; color:var(--gray-700);
+    font-size:10.5px; padding:4px 9px; border:1px solid var(--line-bright);
+    border-radius:3px; color:var(--text-dim); background:rgba(255,255,255,0.02);
   }
-  .img-slot{
-    border:1.5px dashed var(--gray-300); border-radius:6px; background:var(--gray-100);
+  /* PROJECT PHOTO GALLERY — drop <img> tags inside .project-gallery to add photos */
+  .project-gallery{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr));
+    gap:8px; align-content:start;
+  }
+  .project-gallery img{
+    width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:6px;
+    border:1px solid var(--line-bright); cursor:zoom-in; display:block;
+    transition:transform .2s, border-color .2s, box-shadow .2s;
+  }
+  .project-gallery img:hover{transform:scale(1.03); border-color:var(--green-dim); box-shadow:0 0 20px rgba(57,255,143,0.18);}
+  .gallery-placeholder{
+    border:1.5px dashed var(--line-bright); border-radius:6px; background:var(--surface-2);
     min-height:180px; display:flex; align-items:center; justify-content:center;
-    text-align:center; padding:18px; color:var(--gray-500); font-size:12.5px;
-    font-family:var(--mono); line-height:1.5;
+    text-align:center; padding:18px; color:var(--text-faint); font-size:11.5px;
+    line-height:1.5; grid-column:1/-1;
+  }
+
+  /* LIGHTBOX — click any gallery photo to view it full-size */
+  .lightbox{
+    display:none; position:fixed; inset:0; z-index:999;
+    background:rgba(4,10,8,0.92); align-items:center; justify-content:center;
+    cursor:zoom-out; padding:30px;
+  }
+  .lightbox.active{display:flex;}
+  .lightbox img{max-width:100%; max-height:100%; border:1px solid var(--line-bright); border-radius:6px; box-shadow:0 0 60px rgba(57,255,143,0.15);}
+
+  /* GALLERY SECTION — tabs by project, named photos */
+  .gallery-tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px;}
+  .gtab{
+    font-family:var(--mono); background:var(--surface); border:1px solid var(--line-bright);
+    color:var(--text-dim); padding:9px 18px; border-radius:4px; cursor:pointer;
+    font-size:12.5px; letter-spacing:0.03em; transition:all .15s;
+  }
+  .gtab:hover{border-color:var(--green-dim); color:var(--green);}
+  .gtab.active{color:var(--green); border-color:var(--green-dim); background:rgba(57,255,143,0.07); box-shadow:0 0 14px rgba(57,255,143,0.15);}
+  .gtab-panel{display:none;}
+  .gtab-panel.active{display:block;}
+  .gitems-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:20px;}
+  .gitem{
+    border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--surface);
+    transition:border-color .2s, box-shadow .2s, transform .2s;
+  }
+  .gitem:hover{border-color:var(--green-dim); box-shadow:0 0 24px rgba(57,255,143,0.12); transform:translateY(-2px);}
+  .gitem img{width:100%; aspect-ratio:4/3; object-fit:cover; display:block; cursor:zoom-in;}
+  .gitem-title{padding:10px 14px; font-size:12.5px; color:var(--text); border-top:1px solid var(--line);}
+  .gitem-title::before{content:"> "; color:var(--green-dim);}
+  .gitems-empty{
+    grid-column:1/-1; border:1.5px dashed var(--line-bright); border-radius:6px; background:var(--surface-2);
+    min-height:140px; display:flex; align-items:center; justify-content:center;
+    text-align:center; padding:18px; color:var(--text-faint); font-size:11.5px; line-height:1.5;
   }
 
   /* SKILLS */
-  .skills-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .skills-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
   @media(max-width:720px){.skills-grid{grid-template-columns:1fr;}}
+  .skill-block{border:1px solid var(--line); border-radius:6px; padding:18px; background:var(--surface);}
   .skill-block h3{
-    font-size:12.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--gray-500);
+    font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--green-dim);
     margin-bottom:12px; font-weight:700;
   }
+  .skill-block h3::before{content:"// ";}
   .skill-tags{display:flex; flex-wrap:wrap; gap:7px;}
   .skill-tag{
-    font-size:13px; padding:6px 12px; background:var(--gray-100); border-radius:4px; color:var(--ink);
+    font-size:12px; padding:5px 10px; background:var(--surface-2); border:1px solid var(--line-bright);
+    border-radius:3px; color:var(--text);
   }
 
   /* LEADERSHIP */
-  .lead-item{display:flex; gap:20px; margin-bottom:28px;}
+  .lead-item{display:flex; gap:18px; margin-bottom:26px;}
   .lead-marker{
-    flex-shrink:0; width:10px; height:10px; border-radius:50%; background:var(--accent);
-    margin-top:7px;
+    flex-shrink:0; width:9px; height:9px; border-radius:50%; background:var(--green);
+    margin-top:7px; box-shadow:0 0 8px var(--green);
   }
-  .lead-content h3{font-size:16px; font-weight:700; margin-bottom:4px;}
-  .lead-content .lead-meta{font-size:13px; color:var(--gray-500); margin-bottom:8px;}
-  .lead-content p{font-size:14.5px; color:var(--gray-700);}
+  .lead-content h3{font-size:14.5px; font-weight:700; margin-bottom:4px; color:var(--text);}
+  .lead-content .lead-meta{font-size:12px; color:var(--text-faint); margin-bottom:8px;}
+  .lead-content p{font-size:13.5px; color:var(--text-dim); line-height:1.7;}
 
   /* CONTACT */
   .contact-box{
-    background:var(--ink); color:#fff; border-radius:10px; padding:48px 40px; text-align:center;
+    border:1px solid var(--line-bright); border-radius:8px; padding:44px 36px; text-align:center;
+    background:var(--surface);
+    box-shadow:0 0 40px rgba(57,255,143,0.04);
   }
-  .contact-box h2{font-size:26px; font-weight:800; margin-bottom:12px;}
-  .contact-box p{color:var(--gray-300); font-size:15px; margin-bottom:26px;}
-  .contact-links{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .contact-box .section-num{justify-content:center; display:flex;}
+  .contact-box h2{font-size:22px; font-weight:700; margin-bottom:12px; color:var(--text);}
+  .contact-box p{color:var(--text-dim); font-size:13.5px; margin-bottom:26px;}
+  .contact-links{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
   .contact-links a{
-    padding:11px 22px; border-radius:4px; font-size:14px; font-weight:600; text-decoration:none;
-    border:1px solid rgba(255,255,255,0.25);
+    padding:10px 20px; border-radius:3px; font-size:13px; font-weight:600; text-decoration:none;
+    border:1px solid var(--line-bright); color:var(--text); transition:all .15s;
   }
-  .contact-links a.primary{background:#fff; color:var(--ink); border-color:#fff;}
-  .contact-links a:hover{border-color:#fff;}
+  .contact-links a:hover{border-color:var(--green); color:var(--green); box-shadow:0 0 14px rgba(57,255,143,0.2);}
+  .contact-links a.primary{background:var(--green); color:#04140a; border-color:var(--green);}
+  .contact-links a.primary:hover{box-shadow:0 0 20px rgba(57,255,143,0.45);}
 
-  footer{padding:28px 0; text-align:center; font-size:12.5px; color:var(--gray-500);}
+  footer{padding:26px 0; text-align:center; font-size:11.5px; color:var(--text-faint);}
+  footer .p{color:var(--green-dim);}
 </style>
 </head>
 <body>
 
+<div id="bgfx"><canvas id="rain"></canvas><div class="veil"></div></div>
+
 <header class="nav">
   <div class="nav-inner">
-    <div class="nav-name">URA</div>
+    <div class="nav-name">uziel@portfolio<span class="cursor"></span></div>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#leadership">Leadership</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#gallery">gallery</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#leadership">leadership</a></li>
     </ul>
-    <a class="nav-cta" href="resume.pdf" target="_blank">Resume ↓</a>
+    <a class="nav-cta" href="resume.pdf" target="_blank">./resume.pdf</a>
   </div>
 </header>
 
 <section class="hero">
   <div class="wrap">
-    <div class="eyebrow">Available for Summer 2027 internships</div>
-    <h1>Uziel Rodríguez Andújar</h1>
-    <div class="role">Mechanical Engineering Undergraduate — University of Puerto Rico, Mayagüez</div>
-    <p class="lede">I design hardware under real constraints — payloads, mounting brackets, structural systems — and push it from CAD into working prototypes. Interested in structural mechanics, bio-inspired design, and adaptive robotic systems.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="#projects">View Projects</a>
-      <a class="btn btn-outline" href="resume.pdf" target="_blank">Download Resume</a>
-      <a class="btn btn-outline" href="mailto:uziel.rodriguez@upr.edu">Contact</a>
+    <div class="term-window">
+      <div class="term-bar">
+        <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+        <span class="term-title">uziel@upr-mayaguez: ~/portfolio</span>
+      </div>
+      <div class="term-body">
+        <div class="prompt-line"><span class="p">$</span> whoami --engineer</div>
+        <h1><span class="brkt">&gt;</span> Uziel Rodríguez Andújar</h1>
+        <div class="role">Mechanical Engineering Undergraduate — University of Puerto Rico, Mayagüez</div>
+        <p class="lede">I design hardware under real constraints — payloads, mounting brackets, structural systems — and push it from CAD into working prototypes. Interested in structural mechanics, bio-inspired design, and adaptive robotic systems.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">[ view projects ]</a>
+          <a class="btn btn-outline" href="resume.pdf" target="_blank">[ download resume ]</a>
+          <a class="btn btn-outline" href="mailto:uziel.rodriguez@upr.edu">[ contact ]</a>
+        </div>
+        <div class="status-line"><span class="status-dot"></span> status: open</div>
+      </div>
     </div>
   </div>
 </section>
@@ -200,7 +306,7 @@
 <section id="about">
   <div class="wrap">
     <div class="section-head">
-      <div class="section-num">01 — About</div>
+      <div class="section-num">01_about</div>
       <h2>How I approach engineering</h2>
     </div>
     <div class="about-body">
@@ -214,7 +320,7 @@
 <section id="projects">
   <div class="wrap">
     <div class="section-head">
-      <div class="section-num">02 — Projects</div>
+      <div class="section-num">02_projects</div>
       <h2>Selected work</h2>
       <p>Case studies from current and past hardware projects — design, analysis, and fabrication.</p>
     </div>
@@ -231,10 +337,10 @@
       <div class="project-body">
         <div class="project-grid">
           <div class="project-desc">
-            <p>Designed and analyzed structural components for a hybrid VTOL platform that transitions between hover and cruise flight dynamics.</p>
+            <p>Designed and analyzed structural components for a <span class="kw">hybrid VTOL platform</span> that transitions between <span class="kw">hover and cruise flight dynamics</span>.</p>
             <ul class="project-list">
-              <li>Performed interference-fit and structural simulation analysis on a custom snap-fit PETG mounting bracket in SolidWorks</li>
-              <li>Developed CAD assemblies incorporating carbon fiber composite structures</li>
+              <li>Performed <span class="kw">interference-fit and structural simulation analysis</span> on a custom snap-fit PETG mounting bracket in SolidWorks</li>
+              <li>Developed CAD assemblies incorporating <span class="kw">carbon fiber composite structures</span></li>
               <li>Collaborated on component fabrication and assembly workflows</li>
             </ul>
             <div class="tools-row">
@@ -244,7 +350,10 @@
               <span class="tool-chip">Rapid Prototyping</span>
             </div>
           </div>
-          <div class="img-slot"><img src="ASM_Skeletor_Drone_SOLVED_IMAGE.PNG.png" alt="BPRL VTOL quadcopter" style="width:100%; border-radius:6px; display:block;"></div>
+          <!-- PHOTO GALLERY: add more <img src="..." alt="..."> tags below to add more photos -->
+          <div class="project-gallery">
+            <img src="ASM_Skeletor_Drone_SOLVED_IMAGE.PNG.png" alt="BPRL VTOL quadcopter">
+          </div>
         </div>
       </div>
     </div>
@@ -261,12 +370,12 @@
       <div class="project-body">
         <div class="project-grid">
           <div class="project-desc">
-            <p>Co-leading design of a payload that integrates all mission components within strict volume, weight, and safety constraints, following NASA Balloon Program protocols.</p>
+            <p>Co-leading design of a payload that integrates all mission components within strict volume, weight, and safety constraints, following <span class="kw">NASA Balloon Program protocols</span>.</p>
             <ul class="project-list">
-              <li>Applied aerospace and systems engineering standards to payload design</li>
-              <li>Conducted risk assessments and mechanical evaluations; coordinated multidisciplinary teams on hazard controls and pre-flight verification</li>
+              <li>Applied <span class="kw">aerospace and systems engineering standards</span> to payload design</li>
+              <li>Conducted <span class="kw">risk assessments and mechanical evaluations</span>; coordinated multidisciplinary teams on <span class="kw">hazard controls and pre-flight verification</span></li>
               <li>Manufactured the payload and ran test procedures before launch</li>
-              <li>Simulated payload trajectories and optimized design for target altitudes</li>
+              <li>Simulated <span class="kw">payload trajectories</span> and optimized design for target altitudes</li>
             </ul>
             <div class="tools-row">
               <span class="tool-chip">SolidWorks</span>
@@ -275,7 +384,10 @@
               <span class="tool-chip">Team Leadership</span>
             </div>
           </div>
-          <div class="img-slot">[ Add photo/render: payload assembly, launch day, or CAD cutaway ]</div>
+          <!-- PHOTO GALLERY: delete the placeholder line and add <img src="images/yourfile.jpg" alt="..."> tags -->
+          <div class="project-gallery">
+            <div class="gallery-placeholder">[ No photos yet — payload assembly, launch day, or CAD cutaway ]</div>
+          </div>
         </div>
       </div>
     </div>
@@ -294,10 +406,10 @@
           <div class="project-desc">
             <p>Contributing to the design of a smart parking barrier operated via mobile app, with a focus on structural validation under real-world conditions.</p>
             <ul class="project-list">
-              <li>Performed FEA to evaluate stress distribution and deformation under applied loads</li>
-              <li>Identified gaps between simulation results and physical conditions — the model missed user behavior and ground stability, which introduced shear stresses on unstable soil</li>
-              <li>Refined boundary conditions and modeling assumptions based on findings</li>
-              <li>Supported electromechanical integration, including electrical layout and system interfacing</li>
+              <li>Performed <span class="kw">FEA</span> to evaluate <span class="kw">stress distribution and deformation</span> under applied loads</li>
+              <li>Identified gaps between simulation results and physical conditions — the model missed user behavior and ground stability, which introduced <span class="kw">shear stresses</span> on unstable soil</li>
+              <li>Refined <span class="kw">boundary conditions and modeling assumptions</span> based on findings</li>
+              <li>Supported <span class="kw">electromechanical integration</span>, including electrical layout and system interfacing</li>
             </ul>
             <div class="tools-row">
               <span class="tool-chip">SolidWorks FEA</span>
@@ -305,7 +417,10 @@
               <span class="tool-chip">Electromechanical Integration</span>
             </div>
           </div>
-          <div class="img-slot">[ Add photo/render: barrier hardware or FEA stress plot ]</div>
+          <!-- PHOTO GALLERY: delete the placeholder line and add <img src="images/yourfile.jpg" alt="..."> tags -->
+          <div class="project-gallery">
+            <div class="gallery-placeholder">[ No photos yet — barrier hardware or FEA stress plot ]</div>
+          </div>
         </div>
       </div>
     </div>
@@ -317,15 +432,15 @@
           <div class="project-title">Power Puzzle — Ergonomic Support System</div>
           <div class="project-org">MIT Terrascope Program · Design for Complex Environmental Issues · First Year</div>
         </div>
-        <span class="project-tag">Foundational</span>
+        <span class="project-tag foundational">Foundational</span>
       </div>
       <div class="project-body">
         <div class="project-grid">
           <div class="project-desc">
-            <p>Designed Power Puzzle, an ergonomic support system to help elderly users in Puerto Rico operate portable power plants more easily — the first project I worked on for a real, defined user rather than an academic exercise.</p>
+            <p>Designed Power Puzzle, an <span class="kw">ergonomic support system</span> to help elderly users in Puerto Rico operate portable power plants more easily — the first project I worked on for a real, defined user rather than an academic exercise.</p>
             <ul class="project-list">
-              <li>Designed for real usability and accessibility constraints, not just performance specs</li>
-              <li>Validated the concept through user feedback — the team indicated they would genuinely consider purchasing the product</li>
+              <li>Designed for real <span class="kw">usability and accessibility constraints</span>, not just performance specs</li>
+              <li>Validated the concept through <span class="kw">user feedback</span> — the team indicated they would genuinely consider purchasing the product</li>
               <li>Presented final design and testing documentation to course faculty</li>
             </ul>
             <div class="tools-row">
@@ -334,7 +449,10 @@
               <span class="tool-chip">User Testing</span>
             </div>
           </div>
-          <div class="img-slot">[ Add photo/sketch: Power Puzzle prototype ]</div>
+          <!-- PHOTO GALLERY: delete the placeholder line and add <img src="images/yourfile.jpg" alt="..."> tags -->
+          <div class="project-gallery">
+            <div class="gallery-placeholder">[ No photos yet — Power Puzzle prototype/sketch ]</div>
+          </div>
         </div>
       </div>
     </div>
@@ -342,10 +460,58 @@
   </div>
 </section>
 
+<section id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">03_gallery</div>
+      <h2>Design gallery</h2>
+      <p>Photos and renders by project — click any tab, then click a photo to view it full-size.</p>
+    </div>
+
+    <div class="gallery-tabs">
+      <button class="gtab active" data-target="gtab-vtol">VTOL</button>
+      <button class="gtab" data-target="gtab-lifts">LIFTS</button>
+      <button class="gtab" data-target="gtab-rocs">ROCS / Car</button>
+      <button class="gtab" data-target="gtab-power">Power Puzzle</button>
+    </div>
+
+    <!-- TAB: VTOL (BPRL) -->
+    <div class="gtab-panel active" id="gtab-vtol">
+      <div class="gitems-grid">
+        <div class="gitem">
+          <img src="ASM_Skeletor_Drone_SOLVED_IMAGE.PNG.png" alt="VTOL quadcopter structural assembly">
+          <div class="gitem-title">VTOL Quadcopter — Structural Assembly</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: LIFTS -->
+    <div class="gtab-panel" id="gtab-lifts">
+      <div class="gitems-grid">
+        <div class="gitems-empty">[ No designs added yet — add payload renders, CAD cutaways, launch photos ]</div>
+      </div>
+    </div>
+
+    <!-- TAB: ROCS / Car -->
+    <div class="gtab-panel" id="gtab-rocs">
+      <div class="gitems-grid">
+        <div class="gitems-empty">[ No designs added yet — add barrier hardware or FEA stress plots ]</div>
+      </div>
+    </div>
+
+    <!-- TAB: Power Puzzle -->
+    <div class="gtab-panel" id="gtab-power">
+      <div class="gitems-grid">
+        <div class="gitems-empty">[ No designs added yet — add prototype photos or sketches ]</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="skills">
   <div class="wrap">
     <div class="section-head">
-      <div class="section-num">03 — Skills</div>
+      <div class="section-num">04_skills</div>
       <h2>Technical toolkit</h2>
     </div>
     <div class="skills-grid">
@@ -381,7 +547,7 @@
 <section id="leadership">
   <div class="wrap">
     <div class="section-head">
-      <div class="section-num">04 — Leadership &amp; Mentorship</div>
+      <div class="section-num">05_leadership</div>
       <h2>Beyond the bench</h2>
     </div>
 
@@ -416,21 +582,87 @@
 
 <section id="contact">
   <div class="wrap">
+    <div class="section-num">06_contact</div>
     <div class="contact-box">
-      <h2>Let's build something:_</h2>
+      <h2>&gt; Let's build something:_</h2>
       <p>Open to Summer 2027 internships and research opportunities in structural mechanics, aerospace, and robotics.</p>
       <div class="contact-links">
         <a class="primary" href="mailto:uziel.rodriguez@upr.edu">uziel.rodriguez@upr.edu</a>
-        <a href="#" target="_blank">LinkedIn ↗</a>
-        <a href="resume.pdf" target="_blank">Resume ↓</a>
+        <a href="#" target="_blank">linkedin ↗</a>
+        <a href="resume.pdf" target="_blank">./resume.pdf</a>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  © 2026 Uziel Rodríguez Andújar · Built with GitHub Pages
+  <span class="p">$</span> echo "© 2026 Uziel Rodríguez Andújar · built on GitHub Pages"
 </footer>
+
+<!-- LIGHTBOX: click any project photo to view it full-size -->
+<div id="lightbox" class="lightbox">
+  <img id="lightbox-img" src="" alt="">
+</div>
+<script>
+document.addEventListener('click', function(e){
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightbox-img');
+  var galleryImg = e.target.closest('.project-gallery img, .gitem img');
+  if (galleryImg){
+    lbImg.src = galleryImg.src;
+    lb.classList.add('active');
+  } else if (e.target === lb || e.target === lbImg){
+    lb.classList.remove('active');
+  }
+});
+
+// GALLERY TABS
+document.querySelectorAll('.gtab').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.gtab').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.gtab-panel').forEach(function(p){ p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.target).classList.add('active');
+  });
+});
+</script>
+
+<script>
+(function(){
+  var canvas = document.getElementById('rain');
+  var ctx = canvas.getContext('2d');
+  var fontSize = 15;
+  var columns, drops;
+
+  function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    columns = Math.floor(canvas.width / fontSize);
+    drops = new Array(columns).fill(1);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  var chars = '01アイウエオカキクケコサシスセソ▲▼◆#/\\|+-=';
+  var palette = ['#39ff8f', '#4ee8ff', '#ffcc66', '#ff8a3d'];
+
+  function draw(){
+    ctx.fillStyle = 'rgba(10,14,13,0.10)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = fontSize + 'px monospace';
+    for (var i = 0; i < drops.length; i++){
+      var text = chars[Math.floor(Math.random() * chars.length)];
+      ctx.fillStyle = palette[Math.floor(Math.random() * palette.length)];
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975){
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+  }
+  setInterval(draw, 60);
+})();
+</script>
 
 </body>
 </html>
