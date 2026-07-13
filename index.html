@@ -477,33 +477,22 @@
 
     <!-- TAB: VTOL (BPRL) -->
     <div class="gtab-panel active" id="gtab-vtol">
-      <div class="gitems-grid">
-        <div class="gitem">
-          <img src="ASM_Skeletor_Drone_SOLVED_IMAGE.PNG.png" alt="VTOL quadcopter structural assembly">
-          <div class="gitem-title">VTOL Quadcopter — Structural Assembly</div>
-        </div>
-      </div>
+      <div class="gitems-grid"></div>
     </div>
 
     <!-- TAB: LIFTS -->
     <div class="gtab-panel" id="gtab-lifts">
-      <div class="gitems-grid">
-        <div class="gitems-empty">[ No designs added yet — add payload renders, CAD cutaways, launch photos ]</div>
-      </div>
+      <div class="gitems-grid"></div>
     </div>
 
     <!-- TAB: ROCS / Car -->
     <div class="gtab-panel" id="gtab-rocs">
-      <div class="gitems-grid">
-        <div class="gitems-empty">[ No designs added yet — add barrier hardware or FEA stress plots ]</div>
-      </div>
+      <div class="gitems-grid"></div>
     </div>
 
     <!-- TAB: Power Puzzle -->
     <div class="gtab-panel" id="gtab-power">
-      <div class="gitems-grid">
-        <div class="gitems-empty">[ No designs added yet — add prototype photos or sketches ]</div>
-      </div>
+      <div class="gitems-grid"></div>
     </div>
   </div>
 </section>
@@ -614,6 +603,49 @@ document.addEventListener('click', function(e){
   } else if (e.target === lb || e.target === lbImg){
     lb.classList.remove('active');
   }
+});
+
+// GALLERY PHOTOS — to add a photo, just add one line below with the image path and its name.
+// Drop the image file into the images/ folder first, then add a line like:
+//   { src: 'images/your-photo.jpg', title: 'Name of the photo' },
+var GALLERY_PHOTOS = {
+  'gtab-vtol': [
+    { src: 'images/ASM_Skeletor_Drone_SOLVED_IMAGE.PNG.png', title: 'VTOL Quadcopter — Structural Assembly' },
+    { src: 'images/ASM_Skeletor_Drone_v1_iso_black.PNG', title: 'VTOL Quadcopter — Isometric View' },
+    { src: 'images/ASM_Skeletor_Drone_v1_front_ptchblcvk.PNG', title: 'VTOL Quadcopter — Front View' },
+    { src: 'images/ASM_Skeletor_Drone_v1_LOW.PNG', title: 'VTOL Quadcopter — Low Angle View' },
+  ],
+  'gtab-lifts': [
+    // { src: 'images/your-photo.jpg', title: 'Name of the photo' },
+  ],
+  'gtab-rocs': [
+    // { src: 'images/your-photo.jpg', title: 'Name of the photo' },
+  ],
+  'gtab-power': [
+    // { src: 'images/your-photo.jpg', title: 'Name of the photo' },
+  ],
+};
+
+function escapeHTML(str){
+  var div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+Object.keys(GALLERY_PHOTOS).forEach(function(panelId){
+  var panel = document.getElementById(panelId);
+  if (!panel) return;
+  var grid = panel.querySelector('.gitems-grid');
+  var photos = GALLERY_PHOTOS[panelId];
+  if (!photos.length){
+    grid.innerHTML = '<div class="gitems-empty">[ No designs added yet ]</div>';
+    return;
+  }
+  grid.innerHTML = photos.map(function(p){
+    var safeTitle = escapeHTML(p.title);
+    var safeSrc = escapeHTML(p.src);
+    return '<div class="gitem"><img src="' + safeSrc + '" alt="' + safeTitle + '"><div class="gitem-title">' + safeTitle + '</div></div>';
+  }).join('');
 });
 
 // GALLERY TABS
