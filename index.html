@@ -117,7 +117,7 @@
   .nav-cta:hover{background:rgba(57,255,143,0.08); box-shadow:0 0 16px rgba(57,255,143,0.25);}
 
   /* TERMINAL WINDOW (hero) */
-  .hero{padding:64px 0 60px; border-bottom:1px solid var(--line);}
+  .hero{padding:64px 0 60px;}
   .term-window{
     border:1px solid var(--line-bright); border-radius:8px; background:var(--surface);
     box-shadow:0 0 40px rgba(57,255,143,0.05), 0 20px 50px rgba(0,0,0,0.4);
@@ -153,8 +153,11 @@
 
   /* SECTION HEADERS */
   section{padding:56px 0;}
-  section + section{border-top:1px solid var(--line);}
   .section-head{margin-bottom:32px;}
+
+  /* SECTION DIVIDER — elvish vine-and-gem flourish between sections */
+  .elf-divider{margin:0 auto; filter:drop-shadow(0 0 6px rgba(78,232,255,0.18));}
+  .elf-divider-svg{width:100%; height:40px; display:block; overflow:visible;}
   .section-num{
     font-size:12px; color:var(--green-dim);
     letter-spacing:0.03em; margin-bottom:8px;
@@ -170,14 +173,38 @@
 
   /* PROJECT CARDS */
   .project{
+    position:relative;
     border:1px solid var(--line); border-radius:6px; margin-bottom:22px; overflow:hidden;
     background:var(--surface);
     transition:border-color .2s, box-shadow .2s, transform .2s;
   }
   .project:hover{border-color:var(--green-dim); box-shadow:0 0 30px rgba(57,255,143,0.08); transform:translateY(-2px);}
+  .holo-corner{
+    position:absolute; width:14px; height:14px; border:2px solid var(--cyan);
+    opacity:0; transition:opacity .3s ease; pointer-events:none; z-index:2;
+  }
+  .project:hover .holo-corner{ opacity:0.85; }
+  .holo-corner.tl{ top:-2px; left:-2px; border-right:none; border-bottom:none; border-radius:5px 0 0 0; }
+  .holo-corner.tr{ top:-2px; right:-2px; border-left:none; border-bottom:none; border-radius:0 5px 0 0; }
+  .holo-corner.bl{ bottom:-2px; left:-2px; border-right:none; border-top:none; border-radius:0 0 0 5px; }
+  .holo-corner.br{ bottom:-2px; right:-2px; border-left:none; border-top:none; border-radius:0 0 5px 0; }
   .project-head{
+    position:relative; overflow:hidden;
     padding:20px 24px; display:flex; justify-content:space-between; align-items:flex-start;
     gap:16px; flex-wrap:wrap; background:var(--surface-2); border-bottom:1px solid var(--line);
+  }
+  .holo-scan{
+    position:absolute; left:0; right:0; height:60%;
+    background:linear-gradient(180deg, transparent, rgba(78,232,255,0.22), transparent);
+    top:-60%; opacity:0; pointer-events:none;
+  }
+  .project:hover .holo-scan{ animation:holo-sweep-once 0.9s ease-out forwards; }
+  @keyframes holo-sweep-once{
+    0%{ top:-60%; opacity:1; }
+    100%{ top:160%; opacity:0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .project:hover .holo-scan{ animation:none !important; }
   }
   .project-title{font-size:15.5px; font-weight:700; color:var(--text);}
   .project-org{font-size:12px; color:var(--text-faint); margin-top:4px;}
@@ -369,6 +396,8 @@
   </div>
 </section>
 
+<div class="wrap"><div class="elf-divider"><svg class="elf-divider-svg" viewBox="0 0 600 48" preserveAspectRatio="none"></svg></div></div>
+
 <section id="about">
   <div class="wrap">
     <div class="section-head">
@@ -383,6 +412,8 @@
   </div>
 </section>
 
+<div class="wrap"><div class="elf-divider"><svg class="elf-divider-svg" viewBox="0 0 600 48" preserveAspectRatio="none"></svg></div></div>
+
 <section id="projects">
   <div class="wrap">
     <div class="section-head">
@@ -393,7 +424,12 @@
 
     <!-- PROJECT 1: BPRL -->
     <div class="project">
+      <span class="holo-corner tl"></span>
+      <span class="holo-corner tr"></span>
+      <span class="holo-corner bl"></span>
+      <span class="holo-corner br"></span>
       <div class="project-head">
+        <div class="holo-scan"></div>
         <div>
           <div class="project-title">Hybrid VTOL Quadcopter — Structural Design</div>
           <div class="project-org">Bio-Inspired Perception and Robotics Laboratory (BPRL) · Mechanical Engineering Intern · Jun–Jul 2026</div>
@@ -427,7 +463,12 @@
 
     <!-- PROJECT 2: LIFTS -->
     <div class="project">
+      <span class="holo-corner tl"></span>
+      <span class="holo-corner tr"></span>
+      <span class="holo-corner bl"></span>
+      <span class="holo-corner br"></span>
       <div class="project-head">
+        <div class="holo-scan"></div>
         <div>
           <div class="project-title">High-Altitude Balloon Payload Design</div>
           <div class="project-org">LIFTS — Launch Initiatives for Technologies in Space · Co-Leader, Payload Design &amp; Manufacture · Sept 2025–Present</div>
@@ -462,7 +503,12 @@
 
     <!-- PROJECT 3: ROCS -->
     <div class="project">
+      <span class="holo-corner tl"></span>
+      <span class="holo-corner tr"></span>
+      <span class="holo-corner bl"></span>
+      <span class="holo-corner br"></span>
       <div class="project-head">
+        <div class="holo-scan"></div>
         <div>
           <div class="project-title">Smart Parking Barrier — Finite Element Analysis</div>
           <div class="project-org">ROCS Carpool — Reserved Optimized Carpool Systems · Hardware Division · Mar 2026–Present</div>
@@ -496,7 +542,12 @@
 
     <!-- PROJECT 4: Power Puzzle -->
     <div class="project">
+      <span class="holo-corner tl"></span>
+      <span class="holo-corner tr"></span>
+      <span class="holo-corner bl"></span>
+      <span class="holo-corner br"></span>
       <div class="project-head">
+        <div class="holo-scan"></div>
         <div>
           <div class="project-title">Power Puzzle — Ergonomic Support System</div>
           <div class="project-org">MIT Terrascope Program · Design for Complex Environmental Issues · First Year</div>
@@ -530,6 +581,8 @@
   </div>
 </section>
 
+<div class="wrap"><div class="elf-divider"><svg class="elf-divider-svg" viewBox="0 0 600 48" preserveAspectRatio="none"></svg></div></div>
+
 <section id="gallery">
   <div class="wrap">
     <div class="section-head">
@@ -558,6 +611,8 @@
     <div class="gtab-panel" id="gtab-power"></div>
   </div>
 </section>
+
+<div class="wrap"><div class="elf-divider"><svg class="elf-divider-svg" viewBox="0 0 600 48" preserveAspectRatio="none"></svg></div></div>
 
 <section id="skills">
   <div class="wrap">
@@ -595,6 +650,8 @@
   </div>
 </section>
 
+<div class="wrap"><div class="elf-divider"><svg class="elf-divider-svg" viewBox="0 0 600 48" preserveAspectRatio="none"></svg></div></div>
+
 <section id="leadership">
   <div class="wrap">
     <div class="section-head">
@@ -631,6 +688,8 @@
     </div>
   </div>
 </section>
+
+<div class="wrap"><div class="elf-divider"><svg class="elf-divider-svg" viewBox="0 0 600 48" preserveAspectRatio="none"></svg></div></div>
 
 <section id="contact">
   <div class="wrap">
@@ -877,6 +936,78 @@ document.querySelectorAll('.gtab').forEach(function(btn){
     document.getElementById(btn.dataset.target).classList.add('active');
   });
 });
+
+// SECTION DIVIDERS — elvish vine-and-gem flourish drawn between sections
+function buildElfDivider(svg){
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(name, attrs){
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+  var cx = 300, cy = 24;
+
+  var defs = el('defs', {});
+  var grad = el('radialGradient', { id: 'gemGlow-' + Math.random().toString(36).slice(2), cx: '50%', cy: '50%', r: '50%' });
+  grad.appendChild(el('stop', { offset: '0%', 'stop-color': '#eafff8', 'stop-opacity': '0.9' }));
+  grad.appendChild(el('stop', { offset: '45%', 'stop-color': '#4ee8ff', 'stop-opacity': '0.55' }));
+  grad.appendChild(el('stop', { offset: '100%', 'stop-color': '#4ee8ff', 'stop-opacity': '0' }));
+  defs.appendChild(grad);
+  svg.appendChild(defs);
+
+  function leaf(x, y, angle, scale){
+    return el('path', {
+      d: 'M0,0 C3,-9 12,-9 15,0 C12,5 3,5 0,0 Z',
+      fill: 'rgba(57,255,143,0.32)', stroke: '#39ff8f', 'stroke-width': 0.8,
+      transform: 'translate(' + x + ',' + y + ') rotate(' + angle + ') scale(' + scale + ')'
+    });
+  }
+
+  function buildHalf(){
+    var g = el('g', { fill: 'none' });
+    g.appendChild(el('path', {
+      d: 'M296,24 C 262,12 236,36 202,22 C 172,10 146,30 118,18 C 92,8 66,20 36,16 C 24,15 12,17 4,20',
+      stroke: '#39ff8f', 'stroke-width': 1.3, 'stroke-linecap': 'round', opacity: 0.85
+    }));
+    g.appendChild(el('path', {
+      d: 'M292,30 C 258,20 232,38 198,28 C 168,20 142,34 112,26',
+      stroke: '#4ee8ff', 'stroke-width': 0.8, 'stroke-linecap': 'round', opacity: 0.35
+    }));
+    g.appendChild(leaf(228, 18, -25, 1));
+    g.appendChild(leaf(150, 25, 12, 0.85));
+    g.appendChild(leaf(72, 15, -18, 0.7));
+    g.appendChild(el('path', {
+      d: 'M20,19 C 11,19 7,12 12,8 C 16,5 20,8 18,12',
+      stroke: '#39ff8f', 'stroke-width': 1.1, 'stroke-linecap': 'round', opacity: 0.8
+    }));
+    return g;
+  }
+
+  var left = buildHalf();
+  svg.appendChild(left);
+  var right = left.cloneNode(true);
+  right.setAttribute('transform', 'translate(600,0) scale(-1,1)');
+  svg.appendChild(right);
+
+  var gemId = grad.getAttribute('id');
+  svg.appendChild(el('circle', { cx: cx, cy: cy, r: 15, fill: 'url(#' + gemId + ')' }));
+  var hexR = 9;
+  var pts = [];
+  for (var i = 0; i < 6; i++){
+    var a = (-90 + i * 60) * Math.PI / 180;
+    pts.push((cx + hexR * Math.cos(a)).toFixed(1) + ',' + (cy + hexR * Math.sin(a)).toFixed(1));
+  }
+  svg.appendChild(el('polygon', {
+    points: pts.join(' '), fill: '#0a0e0d', stroke: '#4ee8ff', 'stroke-width': 1.3
+  }));
+  [pts[0], pts[2], pts[4]].forEach(function(p){
+    var xy = p.split(',');
+    svg.appendChild(el('line', {
+      x1: cx, y1: cy, x2: xy[0], y2: xy[1], stroke: '#4ee8ff', 'stroke-width': 0.7, opacity: 0.6
+    }));
+  });
+}
+document.querySelectorAll('.elf-divider-svg').forEach(buildElfDivider);
 </script>
 
 <script>
