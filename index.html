@@ -141,8 +141,8 @@
   }
   .project-title{font-size:15.5px; font-weight:700; color:var(--text);}
   .project-org{font-size:12px; color:var(--text-faint); margin-top:4px;}
-  .project-mentor{font-size:12px; color:var(--text-faint); margin-top:4px;}
-  .project-mentor .kw{font-size:inherit; font-weight:600;}
+  .project-mentor{font-size:12px; color:var(--text-dim); margin-top:10px; padding-top:10px; border-top:1px dashed var(--line);}
+  .project-mentor .mentor-label{color:var(--cyan); font-weight:600; letter-spacing:0.02em;}
   .project-tag{
     font-size:10.5px; padding:4px 10px; border-radius:3px;
     background:rgba(57,255,143,0.08); color:var(--green); font-weight:700; white-space:nowrap;
@@ -254,6 +254,8 @@
   }
   .lead-content h3{font-size:14.5px; font-weight:700; margin-bottom:4px; color:var(--text);}
   .lead-content .lead-meta{font-size:12px; color:var(--text-faint); margin-bottom:8px;}
+  .lead-content .lead-mentor{font-size:12px; color:var(--text-dim); margin:-2px 0 10px;}
+  .lead-content .lead-mentor .mentor-label{color:var(--cyan); font-weight:600; letter-spacing:0.02em;}
   .lead-content p{font-size:13.5px; color:var(--text-dim); line-height:1.7;}
 
   /* CONTACT */
@@ -347,7 +349,7 @@
         <div>
           <div class="project-title">Hybrid VTOL Quadcopter — Structural Design</div>
           <div class="project-org">Bio-Inspired Perception and Robotics Laboratory (BPRL) · Mechanical Engineering Intern · Jun–Jul 2026</div>
-          <div class="project-mentor">PI: Dr. Sean Humbert · Mentor: Ian Mcconachie</div>
+          <div class="project-mentor"><span class="mentor-label">PI:</span> Dr. Sean Humbert &nbsp;&nbsp;<span class="mentor-label">Mentor:</span> Ian Mcconachie</div>
         </div>
         <span class="project-tag">Current</span>
       </div>
@@ -381,6 +383,7 @@
         <div>
           <div class="project-title">High-Altitude Balloon Payload Design</div>
           <div class="project-org">LIFTS — Launch Initiatives for Technologies in Space · Co-Leader, Payload Design &amp; Manufacture · Sept 2025–Present</div>
+          <div class="project-mentor"><span class="mentor-label">Mentors:</span> Ing. Roberto Rodríguez (Blue Origin), Ing. Rex Deming (Tu Carrera Primero), Dr. Jesús Pérez Cardona (UPRM)</div>
         </div>
         <span class="project-tag">Current</span>
       </div>
@@ -415,7 +418,7 @@
         <div>
           <div class="project-title">Smart Parking Barrier — Finite Element Analysis</div>
           <div class="project-org">ROCS Carpool — Reserved Optimized Carpool Systems · Hardware Division · Mar 2026–Present</div>
-          <div class="project-mentor">Mentor: Dr. Daniel Rodríguez</div>
+          <div class="project-mentor"><span class="mentor-label">Faculty Advisor:</span> Dr. Daniel Rodríguez</div>
         </div>
         <span class="project-tag">Current</span>
       </div>
@@ -449,7 +452,7 @@
         <div>
           <div class="project-title">Power Puzzle — Ergonomic Support System</div>
           <div class="project-org">MIT Terrascope Program · Design for Complex Environmental Issues · First Year</div>
-          <div class="project-mentor">Faculty Advisors: Dr. Ari W. Epstein, Dr. Miguel Torres, Dr. Geoffrey Vega</div>
+          <div class="project-mentor"><span class="mentor-label">Faculty Advisors:</span> Dr. Ari W. Epstein, Dr. Miguel Torres, Dr. Geoffrey Vega</div>
         </div>
         <span class="project-tag foundational">Foundational</span>
       </div>
@@ -555,7 +558,8 @@
       <div class="lead-marker"></div>
       <div class="lead-content">
         <h3>Undergraduate Teaching Fellow — The Lithium Challenge</h3>
-        <div class="lead-meta">MIT · 2.00C: Design for Complex Environmental Issues · Jan–May 2025 · Faculty Advisors: Dr. Ari W. Epstein, Dr. Miguel Torres, Dr. Geoffrey Vega</div>
+        <div class="lead-meta">MIT · 2.00C: Design for Complex Environmental Issues · Jan–May 2025</div>
+        <div class="lead-mentor"><span class="mentor-label">Faculty Advisors:</span> Dr. Ari W. Epstein, Dr. Miguel Torres, Dr. Geoffrey Vega</div>
         <p>Guided and mentored students developing solutions to open-ended, real-world problems. Led instructional sessions focused on research skills, team communication, and interdisciplinary collaboration.</p>
       </div>
     </div>
