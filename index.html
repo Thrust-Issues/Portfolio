@@ -215,6 +215,20 @@
     text-align:center; padding:18px; color:var(--text-faint); font-size:11.5px; line-height:1.5;
   }
 
+  /* GALLERY SUB-TABS — nested category navigation inside a gallery tab (e.g. CADs / Manufacturing) */
+  .gsub-tabbar{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px;}
+  .gsub-tab{
+    font-family:var(--mono); background:transparent; border:1px solid var(--line);
+    color:var(--text-dim); padding:6px 14px; border-radius:4px; cursor:pointer;
+    font-size:11.5px; letter-spacing:0.02em; transition:all .15s;
+  }
+  .gsub-tab:hover{border-color:var(--cyan); color:var(--cyan);}
+  .gsub-tab.active{color:var(--cyan); border-color:#1c7a8a; background:rgba(78,232,255,0.07);}
+  .gsub-panel{display:none;}
+  .gsub-panel.active{display:block;}
+  .gsub-panels{margin-bottom:8px;}
+  .gsub-nested{border-left:2px solid var(--line); padding-left:18px; margin-top:4px;}
+
   /* SKILLS */
   .skills-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
   @media(max-width:720px){.skills-grid{grid-template-columns:1fr;}}
@@ -476,24 +490,16 @@
     </div>
 
     <!-- TAB: VTOL (BPRL) -->
-    <div class="gtab-panel active" id="gtab-vtol">
-      <div class="gitems-grid"></div>
-    </div>
+    <div class="gtab-panel active" id="gtab-vtol"></div>
 
     <!-- TAB: LIFTS -->
-    <div class="gtab-panel" id="gtab-lifts">
-      <div class="gitems-grid"></div>
-    </div>
+    <div class="gtab-panel" id="gtab-lifts"></div>
 
     <!-- TAB: ROCS / Car -->
-    <div class="gtab-panel" id="gtab-rocs">
-      <div class="gitems-grid"></div>
-    </div>
+    <div class="gtab-panel" id="gtab-rocs"></div>
 
     <!-- TAB: Power Puzzle -->
-    <div class="gtab-panel" id="gtab-power">
-      <div class="gitems-grid"></div>
-    </div>
+    <div class="gtab-panel" id="gtab-power"></div>
   </div>
 </section>
 
@@ -605,26 +611,68 @@ document.addEventListener('click', function(e){
   }
 });
 
-// GALLERY PHOTOS — to add a photo, just add one line below with the image path and its name.
-// Drop the image file into the images/ folder first, then add a line like:
-//   { src: 'images/your-photo.jpg', title: 'Name of the photo' },
-var GALLERY_PHOTOS = {
-  'gtab-vtol': [
-    { src: 'images/ASM_Skeletor_Drone_SOLVED_IMAGE.PNG.png', title: 'VTOL Quadcopter — Structural Assembly' },
-    { src: 'images/Skeletor_Dynamics_PITCHBLCK.PNG', title: 'VTOL Quadcopter — Folding Wing Assembly' },
-    { src: 'images/ASM_Skeletor_Drone_v1_iso_black.PNG', title: 'VTOL Quadcopter — Isometric View' },
-    { src: 'images/ASM_Skeletor_Drone_v1_front_ptchblcvk.PNG', title: 'VTOL Quadcopter — Front View' },
-    { src: 'images/ASM_Skeletor_Drone_v1_LOW.PNG', title: 'VTOL Quadcopter — Low Angle View' },
-  ],
-  'gtab-lifts': [
-    // { src: 'images/your-photo.jpg', title: 'Name of the photo' },
-  ],
-  'gtab-rocs': [
-    // { src: 'images/your-photo.jpg', title: 'Name of the photo' },
-  ],
-  'gtab-power': [
-    // { src: 'images/your-photo.jpg', title: 'Name of the photo' },
-  ],
+// GALLERY DATA — each gallery tab is either:
+//   { type: 'photos', photos: [ { src: 'images/your-photo.jpg', title: 'Name of the photo' }, ... ] }
+// or, when a tab needs its own sub-categories (like VTOL's CADs / Manufacturing Photos):
+//   { type: 'groups', groups: [ { label: 'Category Name', type: 'photos'|'groups', ... }, ... ] }
+// Groups can nest as deep as needed — just add another { type: 'groups', groups: [...] } level.
+// To add a photo: find the right photos array below and add one line.
+// To add a new CAD category: copy one of the objects inside vtol -> CADs -> groups and rename its label.
+var GALLERY_DATA = {
+  'gtab-vtol': {
+    type: 'groups',
+    groups: [
+      {
+        label: 'CADs',
+        type: 'groups',
+        groups: [
+          {
+            label: 'Main Frame',
+            type: 'photos',
+            photos: [
+              { src: 'images/ASM_Skeletor_Drone_SOLVED_IMAGE.PNG.png', title: 'VTOL Quadcopter — Structural Assembly' },
+              { src: 'images/ASM_Skeletor_Drone_v1_iso_black.PNG', title: 'VTOL Quadcopter — Isometric View' },
+              { src: 'images/ASM_Skeletor_Drone_v1_front_ptchblcvk.PNG', title: 'VTOL Quadcopter — Front View' },
+              { src: 'images/ASM_Skeletor_Drone_v1_LOW.PNG', title: 'VTOL Quadcopter — Low Angle View' },
+            ],
+          },
+          {
+            label: 'Carbon Fiber',
+            type: 'photos',
+            photos: [
+              { src: 'images/Skeletor_Dynamics_PITCHBLCK.PNG', title: 'VTOL Quadcopter — Folding Wing Assembly' },
+            ],
+          },
+          // { label: 'New Category', type: 'photos', photos: [ { src: 'images/your-photo.jpg', title: 'Name of the photo' } ] },
+        ],
+      },
+      {
+        label: 'Manufacturing Photos',
+        type: 'photos',
+        photos: [
+          // { src: 'images/your-photo.jpg', title: 'Name of the photo' },
+        ],
+      },
+    ],
+  },
+  'gtab-lifts': {
+    type: 'photos',
+    photos: [
+      // { src: 'images/your-photo.jpg', title: 'Name of the photo' },
+    ],
+  },
+  'gtab-rocs': {
+    type: 'photos',
+    photos: [
+      // { src: 'images/your-photo.jpg', title: 'Name of the photo' },
+    ],
+  },
+  'gtab-power': {
+    type: 'photos',
+    photos: [
+      // { src: 'images/your-photo.jpg', title: 'Name of the photo' },
+    ],
+  },
 };
 
 function escapeHTML(str){
@@ -633,20 +681,49 @@ function escapeHTML(str){
   return div.innerHTML;
 }
 
-Object.keys(GALLERY_PHOTOS).forEach(function(panelId){
-  var panel = document.getElementById(panelId);
-  if (!panel) return;
-  var grid = panel.querySelector('.gitems-grid');
-  var photos = GALLERY_PHOTOS[panelId];
-  if (!photos.length){
-    grid.innerHTML = '<div class="gitems-empty">[ No designs added yet ]</div>';
-    return;
+function renderPhotosGrid(photos){
+  if (!photos || !photos.length){
+    return '<div class="gitems-grid"><div class="gitems-empty">[ No designs added yet ]</div></div>';
   }
-  grid.innerHTML = photos.map(function(p){
+  var items = photos.map(function(p){
     var safeTitle = escapeHTML(p.title);
     var safeSrc = escapeHTML(p.src);
     return '<div class="gitem"><img src="' + safeSrc + '" alt="' + safeTitle + '"><div class="gitem-title">' + safeTitle + '</div></div>';
   }).join('');
+  return '<div class="gitems-grid">' + items + '</div>';
+}
+
+function renderGalleryNode(node){
+  if (node.type === 'groups'){
+    var tabs = node.groups.map(function(g, i){
+      return '<button class="gsub-tab' + (i === 0 ? ' active' : '') + '" data-index="' + i + '">' + escapeHTML(g.label) + '</button>';
+    }).join('');
+    var panels = node.groups.map(function(g, i){
+      return '<div class="gsub-panel' + (i === 0 ? ' active' : '') + '">' + renderGalleryNode(g) + '</div>';
+    }).join('');
+    return '<div class="gsub-nested"><div class="gsub-tabbar">' + tabs + '</div><div class="gsub-panels">' + panels + '</div></div>';
+  }
+  return renderPhotosGrid(node.photos);
+}
+
+Object.keys(GALLERY_DATA).forEach(function(panelId){
+  var panel = document.getElementById(panelId);
+  if (!panel) return;
+  panel.innerHTML = renderGalleryNode(GALLERY_DATA[panelId]);
+});
+
+// GALLERY SUB-TABS (nested categories, e.g. CADs / Manufacturing Photos)
+document.addEventListener('click', function(e){
+  var subBtn = e.target.closest('.gsub-tab');
+  if (!subBtn) return;
+  var tabbar = subBtn.parentElement;
+  var panelsContainer = tabbar.nextElementSibling;
+  var index = subBtn.getAttribute('data-index');
+  Array.prototype.forEach.call(tabbar.children, function(b){ b.classList.remove('active'); });
+  subBtn.classList.add('active');
+  Array.prototype.forEach.call(panelsContainer.children, function(p, i){
+    p.classList.toggle('active', String(i) === index);
+  });
 });
 
 // GALLERY TABS
